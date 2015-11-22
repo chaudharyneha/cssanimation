@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>css3 implementations on box</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <script src="js/bootstrap.min.js"></script>
+        <script src="jquery.min.js"></script>
+        <style>
+            .containerBox {
+                background-color: #777;
+                width: 75%;
+                margin: 150px;
+            }
+            .transitions-2d {
+                height: 500px;
+            }
+            .rounded-corners {
+                height: 200px;
+            }
+            .borders {
+                height: 400px;  
+            }
+            .hoverBox{
+                width: 120px;
+                height: 60px;
+                background: #eee;
+                margin: 10px;
+            }
+            h4 {
+                 font-size: 18px;
+                 text-align: center;
+                 line-height: 60px;
+            }
+            
+            /* Grow the box */
+            .grow {
+                -webkit-transform: translateZ(0); /* Safari */
+                transform: translateZ(0);
+                -webkit-transition: all .3s; 
+                transition: all .3s;
+            }
+            .grow:hover, .grow:active {
+                -webkit-transform: scale(1.1); 
+                transform: scale(1.1);
+            }
+            
+            /* Shrink the Box */
+            .shrink {
+                -webkit-transform: translateZ(0px); 
+                transform: translateZ(0px);
+                -webkit-transition: all .3s; 
+                transition: all .3s;
+            }
+            .shrink:hover, .shrink:active {
+                -webkit-transform: scale(.9); 
+                transform: scale(.9);
+            }
+            
+            /*  Pulse effect */ 
+            @-webkit-keyframes pulse {    /* Chrome, Safari, Opera */ 
+                25% {
+                    -webkit-transform: scale(1.1); 
+                    transform: scale(1.1);
+                }
+                75% {
+                    -webkit-transform: scale(0.9); 
+                    transform: scale(0.9);
+                }
+            }
+            @keyframes pulse {
+                25% {
+                    -webkit-transform: scale(1.1);
+                    transform: scale(1.1);
+                }
+                75% {
+                    -webkit-transform: scale(0.9); 
+                    transform: scale(0.9);
+                }
+            }
+            .pulse { 
+                -webkit-transform: translateZ(0); 
+                transform: translateZ(0);
+                -webkit-transition: all; 
+                transition: all ;
+            }
+            .pulse:hover, .pulse:active {
+                -webkit-animation-name: pulse;
+                -webkit-animation-duration: .6s;
+                -webkit-animation-timing-function: linear;
+                -webkit-animation-iteration-count: infinite;
+                animation-name: pulse;
+                animation-duration: .6s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+            }
+            
+            /*  Pulse-Grow effect */ 
+            @-webkit-keyframes pulse-grow {    /* Chrome, Safari, Opera */ 
+                50% {
+                    -webkit-transform: scale(1.1); 
+                    transform: scale(1.1);
+                }
+            }
+            @keyframes pulse-grow {
+                50% { 
+                    -webkit-transform: scale(1.1);
+                    transform: scale(1.1);
+                }
+            }
+            .pulse-grow {
+                -webkit-transform: translateZ(0); 
+                transform: translateZ(0);
+                -webkit-transition: all; 
+                transition: all ;
+            }
+            .pulse-grow:hover, .pulse-grow:active {
+                -webkit-animation-name: pulse-grow;
+                -webkit-animation-duration: .6s;
+                -webkit-animation-timing-function: linear;
+                -webkit-animation-iteration-count: infinite;
+                animation-name: pulse-grow;
+                animation-duration: .6s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+            }
+            /*  Pulse-Shrink effect */ 
+            @-webkit-keyframes pulse-shrink {    /* Chrome, Safari, Opera */ 
+                50% {
+                    -webkit-transform: scale(0.9); 
+                    transform: scale(0.9);
+                }
+            }
+            @keyframes pulse-shrink {
+                50% {
+                    -webkit-transform: scale(0.9);
+                    transform: scale(0.9);
+                }
+            }
+            .pulse-shrink {
+                -webkit-transform: translateZ(0); 
+                transform: translateZ(0);
+                -webkit-transition: all; 
+                transition: all ;
+            }
+            .pulse-shrink:hover, .pulse-shrink:active {
+                -webkit-animation-name: pulse-shrink;
+                -webkit-animation-duration: .6s;
+                -webkit-animation-timing-function: linear;
+                -webkit-animation-iteration-count: infinite;
+                animation-name: pulse-shrink;
+                animation-duration: .6s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+            }
+            
+            /*  push effect */ 
+            @-webkit-keyframes push {    /* Chrome, Safari, Opera */ 
+                50% {
+                    -webkit-transform: scale(0.9); 
+                    transform: scale(0.9);
+                }
+            }
+            @keyframes push {
+                50% { 
+                    -webkit-transform: scale(0.9);
+                    transform: scale(0.9);
+                }
+            }
+            .push {
+                -webkit-transform: translateZ(0); 
+                transform: translateZ(0);
+                -webkit-transition: all; 
+                transition: all ;
+            }
+            .push:hover, .push:active {
+                -webkit-animation-name: push;
+                -webkit-animation-duration: .6s;
+                -webkit-animation-timing-function: linear;
+                -webkit-animation-iteration-count: 1;
+                animation-name: push;
+                animation-duration: .6s;
+                animation-timing-function: linear;
+                animation-iteration-count: 1;
+            }
+            
+            /*  Pop effect */ 
+            @-webkit-keyframes pop {    /* Chrome, Safari, Opera */ 
+                50% {
+                    -webkit-transform: scale(1.1); 
+                    transform: scale(1.1);
+                }
+            }
+            @keyframes pop {
+                50% {
+                    -webkit-transform: scale(1.1);
+                    transform: scale(1.1);
+                }
+            }
+            .pop {
+                -webkit-transform: translateZ(0); 
+                transform: translateZ(0);
+                -webkit-transition: all; 
+                transition: all ;
+            }
+            .pop:hover, .pop:active {
+                -webkit-animation-name: pop;
+                -webkit-animation-duration: .6s;
+                -webkit-animation-timing-function: linear;
+                -webkit-animation-iteration-count: 1;
+                animation-name: pop;
+                animation-duration: .6s;
+                animation-timing-function: linear;
+                animation-iteration-count: 1;
+            }
+            
+            /*  Bounce-In effect */ 
+            .bounce-in {
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+                -webkit-transition: all .5s; 
+                transition: all .5s;
+            }
+            .bounce-in:hover, .bounce-in:active { 
+                -webkit-transform: scale(1.2); 
+                transform: scale(1.2);
+                -webkit-transition-timing-function: cubic-bezier(0,2.03,.78,-0.35);
+                transition-timing-function: cubic-bezier(0,2.03,.78,-0.35);
+            }
+            
+            /*  Bounce-Out effect */ 
+            .bounce-out {
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+                -webkit-transition: all .5s; 
+                transition: all .5s;
+            }
+            .bounce-out:hover, .bounce-out:active { 
+                -webkit-transform: scale(0.8); 
+                transform: scale(0.8);
+                -webkit-transition-timing-function: cubic-bezier(0,2.03,.78,-0.35);
+                transition-timing-function: cubic-bezier(20,2.03,.78,-0.35);
+            }
+            
+            /*  Float effect */ 
+            .float {
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+                -webkit-transition: all .3s; 
+                transition: all .3s;
+            }
+            .float:hover, .float:active { 
+                -webkit-transform: translateY(-10px); 
+                transform: translateY(-10px);
+            }
+            
+            /*  Sink effect */ 
+            .sink {
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+                -webkit-transition: all .3s; 
+                transition: all .3s;
+            }
+            .sink:hover, .sink:active { 
+                -webkit-transform: translateY(10px); 
+                transform: translateY(10px);
+            }
+            
+            /*  Hang effect */ 
+            @-webkit-keyframes hang {
+                50% {
+                    -webkit-transform: translateY(5px);
+                    transform: translateY(5px);
+                }
+            }
+            @keyframes hang {
+                50% {
+                    -webkit-transform: translateY(10px);
+                    transform: translateY(10px);
+                }
+            }
+            .hang {
+                -webkit-transform: translateZ(0); 
+                transform: translateZ(0);
+                -webkit-transition: all; 
+                transition: all ;
+            }
+            .hang:hover, .hang:active {
+                -webkit-animation-name: hang;
+                -webkit-animation-duration: 1s;
+                -webkit-animation-timing-function: linear;
+                -webkit-animation-iteration-count: infinite;
+                animation-name: hang;
+                animation-duration: 1s;
+                animation-timing-function: ease-out;
+                animation-iteration-count: infinite;
+            }
+            
+            /*  Jump effect */ 
+            @-webkit-keyframes jump {
+                50% {
+                    -webkit-transform: translateY(-10px);
+                    transform: translateY(-10px);
+                }
+            }
+            @keyframes jump {
+                50% {
+                    -webkit-transform: translateY(-10px);
+                    transform: translateY(-10px);
+                }
+            }
+            .jump {
+                -webkit-transform: translateZ(0); 
+                transform: translateZ(0);
+                -webkit-transition: all; 
+                transition: all ;
+            }
+            .jump:hover, .jump:active {
+                -webkit-animation-name: jump;
+                -webkit-animation-duration: .6s;
+                -webkit-animation-timing-function: linear;
+                -webkit-animation-iteration-count: infinite;
+                animation-name: jump;
+                animation-duration: .6s;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+            }
+            
+            /* Rotate the box */
+            .rotate {
+                -webkit-transform: translateZ(0); /* Safari */
+                transform: translateZ(0);
+                -webkit-transition: all .3s; 
+                transition: all .3s;
+            }
+            .rotate:hover, .rotate:active {
+                -webkit-transform: rotate(15deg); 
+                transform: rotate(15deg);
+            }
+            
+            /* Grow and Rotate the box */
+            .grow-rotate {
+                -webkit-transform: translateZ(0); /* Safari */
+                transform: translateZ(0);
+                -webkit-transition: all .3s; 
+                transition: all .3s;
+            }
+            .grow-rotate:hover, .rotate:active {
+                -webkit-transform: rotate(15deg) scale(1.1); 
+                transform: rotate(15deg) scale(1.1);
+            }
+            
+            /* Sink and Rotate the box */
+            .sink-rotate {
+                -webkit-transform: translateZ(0); /* Safari */
+                transform: translateZ(0);
+                -webkit-transition: all .3s; 
+                transition: all .3s;
+            }
+            .sink-rotate:hover, .sink-rotate:active {
+                -webkit-transform: rotate(15deg) scale(0.9); 
+                transform: rotate(15deg) scale(0.9);
+            }
+            
+            /* Reverse Rotate the box */
+            .rev-rotate {
+                -webkit-transform: translateZ(0); /* Safari */
+                transform: translateZ(0);
+                -webkit-transition: all .3s; 
+                transition: all .3s;
+            }
+            .rev-rotate:hover, .rev-rotate:active {
+                -webkit-transform: rotate(-15deg); 
+                transform: rotate(-15deg);
+            }
+            
+            /* Skew the box */
+            .skew {
+                -webkit-transform: translateZ(0); /* Safari */
+                transform: translateZ(0);
+                -webkit-transition: all .3s; 
+                transition: all .3s;
+            }
+            .skew:hover, .skew:active {
+                -webkit-transform: skew(20deg);
+                transform: skew(20deg);
+            }
+            
+            /* Skew in reverse direction. */
+            .skew-rev {
+                -webkit-transform: translateZ(0); /* Safari */
+                transform: translateZ(0);
+                -webkit-transition: all .3s; 
+                transition: all .3s;
+            }
+            .skew-rev:hover, .skew-rev:active {
+                -webkit-transform: skew(-20deg);
+                transform: skew(-20deg);
+            }
+            
+            /*  Bounce-Horizontal effect */
+            @-webkit-keyframes bounce-horizontally {
+                17% {
+                    -webkit-transform: translateX(10px); 
+                    transform: translateX(10px);
+                }
+                50% {
+                    -webkit-transform: translateX(-10px); 
+                    transform: translateX(-10px);
+                }
+                75% {
+                    -webkit-transform: translateX(5px); 
+                    transform: translateX(5px);
+                }
+                83% {
+                    -webkit-transform: translateX(-5px); 
+                    transform: translateX(-5px);
+                }
+            }
+            @keyframes bounce-horizontally {
+                17% {
+                    -webkit-transform: translateX(10px); 
+                    transform: translateX(10px);
+                }
+                50% {
+                    -webkit-transform: translateX(-10px); 
+                    transform: translateX(-10px);
+                }
+                75% {
+                    -webkit-transform: translateX(5px); 
+                    transform: translateX(5px);
+                }
+                83% {
+                    -webkit-transform: translateX(-5px); 
+                    transform: translateX(-5px);
+                }
+            }
+            .bounce-horizontally {
+                -webkit-transform: translateZ(0); 
+                transform: translateZ(0);
+                -webkit-transition: all; 
+                transition: all ;
+            }
+            .bounce-horizontally:hover, .bounce-horizontally:active {
+                -webkit-animation-name: bounce-horizontally;
+                -webkit-animation-duration: .3s;
+                -webkit-animation-timing-function: ease-out;
+                -webkit-animation-iteration-count: 1;
+                animation-name: bounce-horizontally;
+                animation-duration: .3s;
+                animation-direction: alternate;
+                animation-timing-function: ease-out;
+                animation-iteration-count:infinite;
+            }
+            
+            /*  Bounce-Vertical effect */
+            @-webkit-keyframes bounce-vertically {
+                17% {
+                    -webkit-transform: translateY(10px); 
+                    transform: translateY(10px);
+                }
+                50% {
+                    -webkit-transform: translateY(-10px); 
+                    transform: translateY(-10px);
+                }
+                75% {
+                    -webkit-transform: translateY(5px); 
+                    transform: translateY(5px);
+                }
+                83% {
+                    -webkit-transform: translateY(-5px); 
+                    transform: translateY(-5px);
+                }
+            }
+            @keyframes bounce-vertically {
+                17% {
+                    -webkit-transform: translateY(10px); 
+                    transform: translateY(10px);
+                }
+                50% {
+                    -webkit-transform: translateY(-10px); 
+                    transform: translateY(-10px);
+                }
+                75% {
+                    -webkit-transform: translateY(5px); 
+                    transform: translateY(5px);
+                }
+                83% {
+                    -webkit-transform: translateY(-5px); 
+                    transform: translateY(-5px);
+                }
+            }
+            .bounce-vertically {
+                //-webkit-transform: translateZ(0); 
+                //transform: translateZ(0);
+                -webkit-transition: all; 
+                transition: all ;
+            }
+            .bounce-vertically:hover, .bounce-vertically:active {
+                -webkit-animation-name: bounce-vertically;
+                -webkit-animation-duration: .3s;
+                -webkit-animation-timing-function: ease-out;
+                -webkit-animation-iteration-count: 1;
+                animation-name: bounce-vertically;
+                animation-duration: .3s;
+                animation-direction: alternate;
+                animation-timing-function: ease-out;
+                animation-iteration-count:infinite;
+            }
+            
+            /*  Bounce-Diagonally-Right effect */
+            @-webkit-keyframes bounce-diagonally-right {
+                17% {
+                    -webkit-transform: translate(10px, 10px); 
+                    transform: translate(10px, 10px );
+                }
+                50% {
+                    -webkit-transform: translate(-10px, -10px); 
+                    transform: translate(-10px, -10px);
+                }
+                75% {
+                    -webkit-transform: translate(5px, 5px); 
+                    transform: translate(5px, 5px);
+                }
+                83% {
+                    -webkit-transform: translate(-5px, -5px); 
+                    transform: translate(-5px,-5px);
+                }
+            }
+            @keyframes bounce-diagonally-right {
+                17% {
+                    -webkit-transform: translate(10px, 10px); 
+                    transform: translate(10px, 10px );
+                }
+                50% {
+                    -webkit-transform: translate(-10px, -10px); 
+                    transform: translate(-10px, -10px);
+                }
+                75% {
+                    -webkit-transform: translate(5px, 5px); 
+                    transform: translate(5px, 5px);
+                }
+                83% {
+                    -webkit-transform: translate(-5px, -5px); 
+                    transform: translate(-5px,-5px);
+                }
+            }
+            .bounce-diagnolly-right {
+                -webkit-transition: all; 
+                transition: all ;
+            }
+            .bounce-diagnolly-right:hover, .bounce-diagnolly-right:active {
+                -webkit-animation-name: bounce-diagonally-right;
+                -webkit-animation-duration: .6s;
+                -webkit-animation-timing-function: ease-out;
+                -webkit-animation-iteration-count: 1;
+                animation-name: bounce-diagonally-right;
+                animation-duration: .6s;
+                animation-direction: alternate;
+                animation-timing-function: ease-out;
+                animation-iteration-count:infinite;
+            }
+            
+            /*  Bounce-Diagonally-Left effect */
+            @-webkit-keyframes bounce-diagonally-left {
+                 17% {
+                    -webkit-transform: translate(-10px, 10px); 
+                    transform: translate(-10px, 10px );
+                }
+                50% {
+                    -webkit-transform: translate(10px, -10px); 
+                    transform: translate(10px, -10px);
+                }
+                75% {
+                    -webkit-transform: translate(-5px, 5px); 
+                    transform: translate(-5px, 5px);
+                }
+                83% {
+                    -webkit-transform: translate(5px, -5px); 
+                    transform: translate(5px,-5px);
+                }
+            }
+            @keyframes bounce-diagonally-left {
+                17% {
+                    -webkit-transform: translate(-10px, 10px); 
+                    transform: translate(-10px, 10px );
+                }
+                50% {
+                    -webkit-transform: translate(10px, -10px); 
+                    transform: translate(10px, -10px);
+                }
+                75% {
+                    -webkit-transform: translate(-5px, 5px); 
+                    transform: translate(-5px, 5px);
+                }
+                83% {
+                    -webkit-transform: translate(5px, -5px); 
+                    transform: translate(5px,-5px);
+                }
+            }
+            .bounce-diagnolly-left {
+                -webkit-transition: all; 
+                transition: all ;
+            }
+            .bounce-diagnolly-left:hover, .bounce-diagnolly-left:active {
+                -webkit-animation-name: bounce-diagonally-left;
+                -webkit-animation-duration: .6s;
+                -webkit-animation-timing-function: ease-out;
+                -webkit-animation-iteration-count: 1;
+                animation-name: bounce-diagonally-left;
+                animation-duration: .6s;
+                animation-direction: alternate;
+                animation-timing-function: ease-out;
+                animation-iteration-count:infinite;
+            }
+            
+            /*  Shake-Top part */
+            @-webkit-keyframes skew-shake {
+                 17% {
+                    -webkit-transform: skewX(10deg); 
+                    transform: skewX(10deg);
+                }
+                50% {
+                    -webkit-transform: skewX(-10deg); 
+                    transform: skewX(-10deg); 
+                }
+                75% {
+                    -webkit-transform: skewX(5deg); 
+                    transform: skewX(5deg); 
+                }
+                83% {
+                    -webkit-transform: skewX(-5deg);  
+                    transform: skewX(-5deg); 
+                }
+            }
+            @keyframes skew-shake {
+                17% {
+                    -webkit-transform: skewX(10deg); 
+                    transform: skewX(10deg);
+                }
+                50% {
+                    -webkit-transform: skewX(-10deg); 
+                    transform: skewX(-10deg); 
+                }
+                75% {
+                    -webkit-transform: skewX(5deg); 
+                    transform: skewX(5deg); 
+                }
+                83% {
+                    -webkit-transform: skewX(-5deg);  
+                    transform: skewX(-5deg); 
+                }
+            }
+            .skew-shake {
+                -webkit-transition: all; 
+                transition: all ;
+            }
+            .skew-shake:hover, .skew-shake:active {
+                -webkit-animation-name: skew-shake;
+                -webkit-animation-duration: .6s;
+                -webkit-animation-timing-function: linear;
+                -webkit-animation-iteration-count: 1;
+                animation-name: skew-shake;
+                animation-duration: .6s;
+                animation-direction: alternate;
+                animation-timing-function: ease-out;
+                animation-iteration-count:infinite;
+            }
+            
+            /*  Bounce-Top effect */
+            @-webkit-keyframes bounce-top {
+                17% {
+                    -webkit-transform: skew(10deg, 0deg); 
+                    transform: skew(10deg, 0deg);
+                }
+                50% {
+                    -webkit-transform: skew(-10deg, 0deg); 
+                    transform: skew(-10deg, 0deg); 
+                }
+                75% {
+                    -webkit-transform: skew(5deg, 0deg); 
+                    transform: skew(5deg, 0deg); 
+                }
+                83% {
+                    -webkit-transform: skew(-5deg, 0deg);  
+                    transform: skew(-5deg, 0deg); 
+                }
+            }
+            @keyframes bounce-top {
+                17% {
+                    -webkit-transform: skew(10deg, 0deg); 
+                    transform: skew(10deg, 0deg);
+                }
+                50% {
+                    -webkit-transform: skew(-10deg, 0deg); 
+                    transform: skew(-10deg, 0deg); 
+                }
+                75% {
+                    -webkit-transform: skew(5deg, 0deg); 
+                    transform: skew(5deg, 0deg); 
+                }
+                83% {
+                    -webkit-transform: skew(-5deg, 0deg);  
+                    transform: skew(-5deg, 0deg); 
+                }
+            }
+            .bounce-top {
+                -webkit-transition: all; 
+                transition: all ;
+            }
+            .bounce-top:hover, .bounce-top:active {
+                -webkit-animation-name: bounce-top;
+                -webkit-animation-duration: .6s;
+                -webkit-animation-timing-function: linear;
+                -webkit-animation-iteration-count: 1;
+                animation-name: bounce-top;
+                animation-duration: .6s;
+                animation-direction: alternate;
+                animation-timing-function: ease-out;
+                animation-iteration-count:infinite;
+                transform-origin: 100% 100%
+            }
+            
+            /*  Bounce-Bottom effect */
+            @-webkit-keyframes bounce-bottom {
+                17% {
+                    -webkit-transform: skew(10deg, 0deg); 
+                    transform: skew(10deg, 0deg);
+                }
+                50% {
+                    -webkit-transform: skew(-10deg, 0deg); 
+                    transform: skew(-10deg, 0deg); 
+                }
+                75% {
+                    -webkit-transform: skew(5deg, 0deg); 
+                    transform: skew(5deg, 0deg); 
+                }
+                83% {
+                    -webkit-transform: skew(-5deg, 0deg);  
+                    transform: skew(-5deg, 0deg); 
+                }
+            }
+            @keyframes bounce-bottom {
+                17% {
+                    -webkit-transform: skew(10deg, 0deg); 
+                    transform: skew(10deg, 0deg);
+                }
+                50% {
+                    -webkit-transform: skew(-10deg, 0deg); 
+                    transform: skew(-10deg, 0deg); 
+                }
+                75% {
+                    -webkit-transform: skew(5deg, 0deg); 
+                    transform: skew(5deg, 0deg); 
+                }
+                83% {
+                    -webkit-transform: skew(-5deg, 0deg);  
+                    transform: skew(-5deg, 0deg); 
+                }
+            }
+            .bounce-bottom {
+                -webkit-transition: all; 
+                transition: all ;
+            }
+            .bounce-bottom:hover, .bounce-bottom:active {
+                -webkit-animation-name: bounce-top;
+                -webkit-animation-duration: .6s;
+                -webkit-animation-timing-function: linear;
+                -webkit-animation-iteration-count: 1;
+                animation-name: bounce-top;
+                animation-duration: .6s;
+                animation-direction: alternate;
+                animation-timing-function: ease-out;
+                animation-iteration-count:infinite;
+                transform-origin: 0% 0%
+            }
+            /*  Buzz effect */
+            @-webkit-keyframes buzz {
+                
+                50% {
+                    -webkit-transform: translateX(4px) skew(4deg,4deg); 
+                    transform: translateX(4px) skew(4deg,4deg);
+                }
+            }
+            @keyframes buzz {
+                50% {
+                    -webkit-transform: translateX(4px) skew(4deg,4deg); 
+                    transform: translateX(4px) skew(4deg,4deg);
+                }
+            }
+            .buzz {
+                -webkit-transform: translateZ(0); 
+                transform: translateZ(0);
+                -webkit-transition: all; 
+                transition: all ;
+            }
+            .buzz:hover, .buzz:active {
+                -webkit-animation-name: buzz;
+                -webkit-animation-duration: .1s;
+                -webkit-animation-timing-function: linear;
+                -webkit-animation-iteration-count: infinite;
+                animation-name: buzz;
+                animation-duration: .1s;
+                animation-timing-function:linear;
+                animation-iteration-count:infinite;
+            }
+            
+            /*  Buzz Out effect */
+            @-webkit-keyframes buzz-out {
+                
+                50% {
+                    -webkit-transform: translateX(4px) skew(4deg,4deg); 
+                    transform: translateX(4px) skew(4deg,4deg);
+                }
+            }
+            @keyframes buzz-out {
+                50% {
+                    -webkit-transform: translateX(4px) skew(4deg,4deg); 
+                    transform: translateX(4px) skew(4deg,4deg);
+                }
+            }
+            .buzz-out {
+                -webkit-transform: translateZ(0); 
+                transform: translateZ(0);
+                -webkit-transition: all; 
+                transition: all ;
+            }
+            .buzz-out:hover, .buzz-out:active {
+                -webkit-animation-name: buzz-out;
+                -webkit-animation-duration: .1s;
+                -webkit-animation-timing-function: linear;
+                -webkit-animation-iteration-count: 5;
+                animation-name: buzz-out;
+                animation-duration: .1s;
+                animation-timing-function:linear;
+                animation-iteration-count: 5;
+            }
+            
+            /* Spiral In the box */
+            .spiral-in {
+                -webkit-transform: translateZ(0); /* Safari */
+                transform: translateZ(0);
+                -webkit-transition: all .5s; 
+                transition: all .5s;
+            }
+            .spiral-in:hover, .spiral-in:active {
+                -webkit-transform: rotate(15deg) scale(0.9); 
+                transform: rotate(360deg) scale(1.5);
+            }
+            
+            /* Spiral Out the box */
+            .spiral-out {
+                -webkit-transform: translateZ(0); /* Safari */
+                transform: translateZ(0);
+                -webkit-transition: all .5s; 
+                transition: all .5s;
+            }
+            .spiral-out:hover, .spiral-out:active {
+                -webkit-transform: rotate(15deg) scale(0.9); 
+                transform: rotate(360deg) scale(0.0);
+            }
+            
+            /* Rounded Corner Type1 the box */
+            .type1:hover, .type1:active {
+                border-radius: 5px 30px 30px 5px;
+            }
+            
+            /* Rounded Corner Type2 the box */
+            .type2:hover, .type2:active {
+                border-radius: 5px 30px 5px 30px;
+            }
+            
+            /* Rounded Corner Type3 the box */
+            .type3:hover, .type3:active {
+                border-radius: 30px 5px 30px 5px;
+            }
+            
+            /* Rounded Corner Ellipse*/
+            .ellipse:hover, .ellipse:active {
+                border-radius: 50%;
+            }
+            
+            /* Rounded Corner Elliptical*/
+            .elliptical:hover, .elliptical:active {
+                border-radius: 30px/5px;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div class="container containerBox transitions-2d ">
+            <h1>2D Transitions </h1>
+            <div class="row">
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="grow hoverBox" ><h4>Grow</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="shrink hoverBox"><h4>Shrink</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="pulse hoverBox" ><h4>Pulse</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="pulse-grow hoverBox" ><h4>Pulse Grow</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="pulse-shrink hoverBox" ><h4>Pulse shrink</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="push hoverBox" ><h4>Push</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="pop hoverBox" ><h4>Pop</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="bounce-in hoverBox"><h4>Bounce In</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="bounce-out hoverBox" ><h4>Bounce Out</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="float hoverBox" ><h4>Float</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="sink hoverBox" ><h4>Sink</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="hang hoverBox" ><h4>Hang</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="jump hoverBox" ><h4>Jump</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="rotate hoverBox"><h4>Rotate</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="grow-rotate hoverBox" ><h4>Grow Rotate</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="sink-rotate hoverBox" ><h4>Sink Rotate</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="rev-rotate hoverBox" ><h4>Rotate rev</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="skew hoverBox" ><h4>Skew</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="skew-rev hoverBox" ><h4>Skew Rev</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="bounce-horizontally hoverBox"><h4>Bounce Horiz</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="bounce-vertically hoverBox" ><h4>Bounce Vert</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="bounce-diagnolly-right hoverBox" ><h4>Bounce DiagR</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="bounce-diagnolly-left hoverBox" ><h4>Bounce DiagL</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="skew-shake hoverBox" ><h4>Skew Shake</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="bounce-top hoverBox" ><h4>Bounce Top</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="bounce-bottom hoverBox" ><h4>BounceBottom</h4></div></div>
+                 <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="buzz hoverBox" ><h4>Buzz</h4></div></div>
+                 <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="buzz-out hoverBox" ><h4>Buzz Out</h4></div></div>
+                 <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="spiral-in hoverBox" ><h4>Spiral In</h4></div></div>
+                 <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="spiral-out hoverBox" ><h4>Spiral Out</h4></div></div>
+            </div>
+        </div>
+        
+        <div class="container containerBox rounded-corners">
+            <h1> rounded corners </h1>
+            <div class="row">
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="type1 hoverBox" ><h4>type1</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="type2 hoverBox" ><h4>type2</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="type3 hoverBox" ><h4>type3</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="ellipse hoverBox" ><h4>ellipse</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="elliptical hoverBox" ><h4>Elliptical</h4></div></div>
+            </div>
+        </div>
+        
+        <div class="container containerBox borders">
+            <h1> Border Transitions </h1>
+            <div class="row">
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="bor hoverBox" ><h4>type1</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="type2 hoverBox" ><h4>type2</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="type3 hoverBox" ><h4>type3</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="ellipse hoverBox" ><h4>ellipse</h4></div></div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"><div class="elliptical hoverBox" ><h4>Elliptical</h4></div></div>
+            </div>
+        </div>
+    </body>
+</html>
